@@ -62,6 +62,20 @@ class RGBColor(ComputerColor):
         return hash((self.red, self.green, self.blue))
 
 
+class HSLColor(ComputerColor):
+    END = '\033[0'
+    START = '\033[1;38;2'
+    MOD = 'm'
+
+    def __repr__(self):
+        return f'{self.START};{0};{0};{0}{self.MOD}●{self.END}{self.MOD}'
+
+    def __mul__(self, other):
+        return HSLColor()
+
+    __rmul__ = __mul__
+
+
 def print_a(color: ComputerColor):
     """вывод в консоль буквы А в определенном цвете"""
     bg_color = 0.2 * color
@@ -90,3 +104,5 @@ if __name__ == '__main__':
     print(set(color_list))
     print(0.5 * red)
     print_a(red)
+    dark = HSLColor()
+    print_a(dark)
